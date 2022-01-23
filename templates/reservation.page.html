@@ -10,6 +10,16 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://unpkg.com/notie/dist/notie.min.css"
+        />
+
         <style>
             .my-footer {
                 height: 5em;
@@ -21,6 +31,9 @@
             }
             .room-image {
                 max-width: 50%;
+            }
+            .notie-container {
+                box-shadow: none;
             }
         </style>
         <title>Test page</title>
@@ -110,57 +123,63 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col">
+                <div class="col"></div>
+                <div class="col-6">
                     <h1 class="mt-5">Search for Availability</h1>
                     <form
                         action="/templates/reservation.page.html"
                         method="get"
+                        novalidate
+                        class="needs-validation"
+                        autocomplete="off"
                     >
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="start_date" class="form-label"
-                                        >Starting Date</label
-                                    >
-                                    <input
-                                        required
-                                        type="date"
-                                        class="form-control"
-                                        id="start_date"
-                                        aria-describedby="start_date_help"
-                                        name="start_date"
-                                    />
-                                    <div id="emailHelp" class="form-text">
-                                        Enter your starting date in the form of
-                                        YYYY-MM-DD
-                                    </div>
-                                </div>
+                        <div class="row" id="reservation-dates">
+                            <div class="col">
+                                <input
+                                    type="text"
+                                    name="start"
+                                    class="form-control text-center"
+                                    placeholder="Arrival Date"
+                                />
                             </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="ending_date" class="form-label"
-                                        >Ending Date</label
-                                    >
-                                    <input
-                                        required
-                                        type="date"
-                                        class="form-control"
-                                        id="ending_date"
-                                        aria-describedby="ending_date"
-                                        name="ending_date"
-                                    />
-                                    <div id="emailHelp" class="form-text">
-                                        Enter your starting date in the form of
-                                        YYYY-MM-DD
-                                    </div>
-                                </div>
+                            <div class="col">
+                                <input
+                                    type="text"
+                                    name="end"
+                                    class="form-control text-center"
+                                    placeholder="Departure"
+                                />
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            Search Availability
-                        </button>
+                        <hr />
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary text-center"
+                                >
+                                    Search Availability
+                                </button>
+                            </div>
+                            <div class="col"></div>
+                        </div>
                     </form>
+                </div>
+                <div class="col"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p id="myParagraph">This is some text.</p>
+                    <p>
+                        <button
+                            class="btn btn-outline-secondary"
+                            id="colorButton"
+                        >
+                            Clickme
+                        </button>
+                    </p>
                 </div>
             </div>
         </div>
@@ -169,5 +188,49 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+        <script src="https://unpkg.com/notie"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                "use strict";
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                let forms = document.querySelectorAll(".needs-validation");
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms).forEach(function (form) {
+                    form.addEventListener(
+                        "submit",
+                        function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add("was-validated");
+                        },
+                        false
+                    );
+                });
+            })();
+
+            const elem = document.getElementById("reservation-dates");
+            const rangepicker = new DateRangePicker(elem, {
+                format: "dd-mm-yyyy",
+            });
+
+            function notify(msg, msgType) {
+                notie.alert({
+                    type: msgType,
+                    text: msg,
+                });
+            }
+
+            document
+                .getElementById("colorButton")
+                .addEventListener("click", function () {
+                    notify("This is my message", "error");
+                });
+        </script>
     </body>
 </html>
