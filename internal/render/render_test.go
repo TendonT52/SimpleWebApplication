@@ -1,7 +1,7 @@
 package render
 
 import (
-	"github.com/tsawler/bookings-app/internal/models"
+	"github.com/TendonT52/SimpleWebApplication/internal/models"
 	"net/http"
 	"testing"
 )
